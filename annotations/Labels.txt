@@ -1,0 +1,58 @@
+==================== OCCLUSIONS ====================
+0	none
+1	low occlusion (1-10%)
+2	medium (10-50%)
+3	high occlusion (50-100%)
+
+======================= VIEWS ======================
+v1 	bottom
+v2	front
+v3	rear
+v4	side
+v5	top
+
+======================= PARTS ======================
+aeroplane :
+	p1	body
+	p2	head
+	p3	tail
+	p4	wing
+
+bicycle :
+	p1	body
+	p2	hand
+	p3	seat
+	p4	wheel
+
+boat :
+	p1	body
+	p2	cabin
+	p3	mast
+	p4	paddle
+	p5	sail
+	p6	windows
+
+bird :
+	p1	body
+	p2	face
+	p3	beak
+	p4	leg
+	p5	tail
+	p6	wing
+
+cat :
+	p1	body
+	p2	ear
+	p3	face
+	p4	leg
+	p5	tail
+
+chair :
+	p1	backrest
+	p2	cushion
+	p3	handrest
+	p4	leg
+
+diningtable :
+	p1	table leg
+	p2	table top

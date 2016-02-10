@@ -1,0 +1,172 @@
+\documentclass[10pt,twocolumn,letterpaper]{article}
+
+\usepackage{graphicx}
+
+\newcommand{\mb}[1]{\mathbf{#1}}
+\newcommand{\tb}[1]{\textbf{#1}}
+\newcommand{\mrm}[1]{\mathrm{#1}}
+\newcommand{\boldhead}[1]{\vspace{0.03in}\noindent\textbf{#1.}}
+
+\def\apn{AP$\mrm{_N}$ }
+\def\apnn{AP$\mrm{_N}$}
+\def\anp{AP$\mrm{_N}$ }
+
+\renewcommand{\baselinestretch}{0.99}
+
+\begin{document}
+
+\title{When Good Detectors Go Bad: A Study of Object Detection Error\\
+Automatically Generated Detector Report}
+
+\maketitle
+% \thispagestyle{empty}
+
+\input{header.tex} 
+
+\section{Overall Detector Characteristics}
+
+%\input{ap.tex}
+
+\begin{figure*}[h!tp]
+\vspace{-0.5in}
+\begin{center}
+\begin{tabular}{c c c c c}
+\includegraphics[width=0.15\textwidth]{../plots_fp_pie_aeroplane.pdf} & \includegraphics[width=0.15\textwidth]{../plots_fp_pie_bicycle.pdf} &
+\includegraphics[width=0.15\textwidth]{../plots_fp_pie_boat.pdf} &
+\includegraphics[width=0.15\textwidth]{../plots_fp_pie_bus.pdf} &
+\includegraphics[width=0.15\textwidth]{../plots_fp_pie_car.pdf} \\
+\includegraphics[width=0.15\textwidth]{../plots_fp_aeroplane.pdf} & \includegraphics[width=0.15\textwidth]{../plots_fp_bicycle.pdf} &
+\includegraphics[width=0.15\textwidth]{../plots_fp_boat.pdf} &
+\includegraphics[width=0.15\textwidth]{../plots_fp_bus.pdf} &
+\includegraphics[width=0.15\textwidth]{../plots_fp_car.pdf} \\
+\includegraphics[width=0.15\textwidth]{../plots_fp_pie_motorbike.pdf} &
+\includegraphics[width=0.15\textwidth]{../plots_fp_pie_train.pdf} &
+\includegraphics[width=0.15\textwidth]{../plots_fp_pie_bird.pdf} &
+\includegraphics[width=0.15\textwidth]{../plots_fp_pie_cat.pdf} &
+\includegraphics[width=0.15\textwidth]{../plots_fp_pie_cow.pdf} \\
+\includegraphics[width=0.15\textwidth]{../plots_fp_motorbike.pdf} &
+\includegraphics[width=0.15\textwidth]{../plots_fp_train.pdf} &
+\includegraphics[width=0.15\textwidth]{../plots_fp_bird.pdf} &
+\includegraphics[width=0.15\textwidth]{../plots_fp_cat.pdf} &
+\includegraphics[width=0.15\textwidth]{../plots_fp_cow.pdf} \\
+\includegraphics[width=0.15\textwidth]{../plots_fp_pie_dog.pdf} &
+\includegraphics[width=0.15\textwidth]{../plots_fp_pie_horse.pdf} &
+\includegraphics[width=0.15\textwidth]{../plots_fp_pie_sheep.pdf} &
+\includegraphics[width=0.15\textwidth]{../plots_fp_pie_bottle.pdf} &
+\includegraphics[width=0.15\textwidth]{../plots_fp_pie_chair.pdf} \\
+\includegraphics[width=0.15\textwidth]{../plots_fp_dog.pdf} &
+\includegraphics[width=0.15\textwidth]{../plots_fp_horse.pdf} &
+\includegraphics[width=0.15\textwidth]{../plots_fp_sheep.pdf} &
+\includegraphics[width=0.15\textwidth]{../plots_fp_bottle.pdf} &
+\includegraphics[width=0.15\textwidth]{../plots_fp_chair.pdf} \\
+\includegraphics[width=0.15\textwidth]{../plots_fp_pie_diningtable.pdf} &
+\includegraphics[width=0.15\textwidth]{../plots_fp_pie_pottedplant.pdf} &
+\includegraphics[width=0.15\textwidth]{../plots_fp_pie_sofa.pdf} &
+\includegraphics[width=0.15\textwidth]{../plots_fp_pie_tvmonitor.pdf} &
+\includegraphics[width=0.15\textwidth]{../plots_fp_pie_person.pdf} \\
+\includegraphics[width=0.15\textwidth]{../plots_fp_diningtable.pdf} &
+\includegraphics[width=0.15\textwidth]{../plots_fp_pottedplant.pdf} &
+\includegraphics[width=0.15\textwidth]{../plots_fp_sofa.pdf} &
+\includegraphics[width=0.15\textwidth]{../plots_fp_tvmonitor.pdf} &
+\includegraphics[width=0.15\textwidth]{../plots_fp_person.pdf} \\
+\hspace{-0.17in}
+\vspace{-0.3in}
+\end{tabular}
+\end{center}
+\caption{
+\textbf{Analysis of Top-Ranked Detections.} Pie charts: fraction of top N detections (N=num of objs in category) that are correct (Cor), or false positives due to poor localization (Loc), confusion with similar objects (Sim), confusion with other VOC objects (Oth), or confusion with background or unlabeled objects (BG). Bar graphs: absolute AP improvement by removing all false positives of one type. `B': no confusion with background and non-similar objects.  `L': first bar segment is improvement if duplicate or poor localizations are removed; second bar is improvement if localization errors are corrected so that the false positives become true positives.
+}
+\end{figure*}
+
+\begin{figure*}
+\begin{center}
+\includegraphics[width=0.5\textwidth]{../plots_impact_strong.pdf} \\
+\end{center}
+\caption{
+\textbf{Summary of Sensitivity and Impact of Object Characteristics: } We show the average (over categories) \apn performance of the highest performing and lowest performing subsets within each characteristic (occlusion, truncation, bounding box area, aspect ratio, viewpoint, part visibility).  Overall \apn is indicated by the black dashed line.  The difference between max and min indicates sensitivity; the difference between max and overall indicates the impact.
+}
+\end{figure*}
+
+\input{aeroplane.tex}
+\input{bicycle.tex}
+\input{boat.tex}
+\input{bus.tex}
+\input{car.tex}
+\input{motorbike.tex}
+\input{train.tex}
+\input{bird.tex}
+\input{cat.tex}
+\input{cow.tex}
+\input{dog.tex}
+\input{horse.tex}
+\input{sheep.tex}
+\input{bottle.tex}
+\input{chair.tex}
+\input{diningtable.tex}
+\input{pottedplant.tex}
+\input{sofa.tex}
+\input{tvmonitor.tex}
+\input{person.tex}
+% test
+%\section{Aeroplane}
+%
+%\begin{figure*}[thp]
+%\begin{center}
+%\begin{tabular}{c c c c c }
+%\includegraphics[width=0.2\textwidth]{../fp/aeroplane_fp_0001.pdf} & \hspace{-0.17in}
+%\includegraphics[width=0.2\textwidth]{../fp/aeroplane_fp_0002.pdf} & \hspace{-0.17in}
+%\includegraphics[width=0.2\textwidth]{../fp/aeroplane_fp_0003.pdf} & \hspace{-0.17in}
+%\includegraphics[width=0.2\textwidth]{../fp/aeroplane_fp_0004.pdf} & \hspace{-0.17in}
+%\includegraphics[width=0.2\textwidth]{../fp/aeroplane_fp_0005.pdf} \\
+%\hspace{-0.17in}
+%\includegraphics[width=0.2\textwidth]{../fp/aeroplane_fp_0006.pdf} & \hspace{-0.17in}
+%\includegraphics[width=0.2\textwidth]{../fp/aeroplane_fp_0007.pdf} & \hspace{-0.17in}
+%\includegraphics[width=0.2\textwidth]{../fp/aeroplane_fp_0008.pdf} & \hspace{-0.17in}
+%\includegraphics[width=0.2\textwidth]{../fp/aeroplane_fp_0009.pdf} & \hspace{-0.17in}
+%\includegraphics[width=0.2\textwidth]{../fp/aeroplane_fp_0010.pdf} \\
+%\end{tabular}
+%\end{center}
+%\caption{
+%\vspace{-0.3in}
+%\textbf{Examples of top false positives}
+%}
+%\end{figure*}
+%
+%
+%\begin{figure*}[pht]
+%\begin{center}
+%\includegraphics[width=\textwidth]{../plots_aeroplane_ov50.pdf} \\
+%\end{center}
+%\caption{
+%\textbf{Per-Category Analysis of Characteristics: } \apn ('+') with standard error bars (red). Black dashed lines indicate overall AP$\mrm{_N}$.  Key: {\em Occlusion}: N=none; L=low; M=medium; H=high.  {\em Truncation}: N=not truncated; T=truncated.  {\em Bounding Box Area}: XS=extra-small; S=small; M=medium; L=large; XL =extra-large. {\em Aspect Ratio}: XT=extra-tall/narrow; T=tall; M=medium; W=wide; XW =extra-wide. {\em Part Visibility / Viewpoint}: '1'=part/side is visible; '0'=part/side is not visible.
+%}
+%\end{figure*}
+%
+%\begin{figure*}
+%\begin{center}
+%\begin{tabular}{c c c c c}
+%\hspace{-0.17in}
+%\includegraphics[width=0.2\textwidth]{../tp/aeroplane_tp_0001.pdf} & \hspace{-0.17in}
+%\includegraphics[width=0.2\textwidth]{../tp/aeroplane_tp_0002.pdf} & \hspace{-0.17in}
+%\includegraphics[width=0.2\textwidth]{../tp/aeroplane_tp_0003.pdf} & \hspace{-0.17in}
+%\includegraphics[width=0.2\textwidth]{../tp/aeroplane_tp_0004.pdf} & \hspace{-0.17in}
+%\includegraphics[width=0.2\textwidth]{../tp/aeroplane_tp_0005.pdf} \\
+%\hspace{-0.17in}
+%\includegraphics[width=0.2\textwidth]{../tp/aeroplane_tp_0006.pdf} & \hspace{-0.17in}
+%\includegraphics[width=0.2\textwidth]{../tp/aeroplane_tp_0007.pdf} & \hspace{-0.17in}
+%\includegraphics[width=0.2\textwidth]{../tp/aeroplane_tp_0008.pdf} & \hspace{-0.17in}
+%\includegraphics[width=0.2\textwidth]{../tp/aeroplane_tp_0009.pdf} & \hspace{-0.17in}
+%\includegraphics[width=0.2\textwidth]{../tp/aeroplane_tp_0010.pdf} \\
+%\hspace{-0.17in}
+%\end{tabular}
+%\end{center}
+%\caption{
+%\label{fig:tp_missing}
+%\textbf{Unexpectedly Difficult Detections: } The ground truth object is in red, with predicted confidence in upper-right corner in italics.  The other box shows the highest scoring correct detection (green), if any, or highest scoring overlapping detection (blue dashed) with the detection confidence in the upper-left corner.
+%}
+%\end{figure*}
+
+
+
+
+\end{document}

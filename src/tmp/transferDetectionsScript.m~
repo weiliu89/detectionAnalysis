@@ -1,0 +1,27 @@
+fnpath = '/mnt/disk2/datasets/pascal2010/detections_dpm_v3/%s_final_VOC2007_fgmr3/%sfgmr3.mat';
+outpath = '/home/dhoiem/src/detectionAnalysis/detections/felzenszwalb_v3/fel_v2_VOC2007_%s_det.txt';
+
+allnames = {'aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus', 'car', ...
+     'cat', 'chair', 'cow', 'diningtable', 'dog', 'horse', 'motorbike', 'person', ...
+     'pottedplant', 'sheep', 'sofa', 'train', 'tvmonitor'};  
+
+for o = 1:numel(allnames)
+  objname = allnames{o};
+  fid = fopen(sprintf(outpath, objname), 'w');    
+  
+  for r = 1:numel(rec)
+    id = strtok(rec(r).filename, '.');
+    fn = sprintf(fnpath, objname, id);
+    load(fn, 'detections');
+    bbox = detections(:, 1:4);
+    conf = detections(:, end);   
+    
+    maxov = 0.5;
+    [bbox, conf] = pruneBBox(bbox, conf, [], [], maxov);            
+        
+    for j=1:numel(conf)
+      fprintf(fid,'%s %f %f %f %f %f\n',id,conf(j),bbox(j, :));
+    end
+  end
+  fclose(fid);
+end
