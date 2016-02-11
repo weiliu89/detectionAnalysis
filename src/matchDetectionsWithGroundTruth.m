@@ -7,7 +7,7 @@ function [det, gt] = matchDetectionsWithGroundTruth(dataset, dataset_params, obj
 %
 
 switch lower(dataset)
-  case {'voc', 'voc_compatible'}
+  case {'voc', 'voc_compatible', 'ilsvrc'}
     o = strcmp(dataset_params.objnames_all, objname);
     gt = ann.gt(o); 
     [det, gt] = matchDetectionsWithGroundTruth_VOC(dataset_params, gt, det, localization);

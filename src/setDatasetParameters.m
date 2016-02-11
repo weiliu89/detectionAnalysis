@@ -18,22 +18,22 @@ function dataset_params = setDatasetParameters(dataset)
 %  summary_setnames{nsets}: names of each set (e.g., animal)
 
 switch lower(dataset)
-  case 'voc'
+case 'voc'
     dataset_params.imset = 'test';  % set used for analysis
-    dataset_params.imdir = '/home/dhoiem/data/pascal07/VOCdevkit/VOC2007/JPEGImages/'; % needs to be set for your computer
+    dataset_params.imdir = '/net/search/playpen/wliu/PASCAL/VOC2007/JPEGImages/'; % needs to be set for your computer
     dataset_params.VOCsourcepath = './VOCcode';  % change this for later VOC versions
     dataset_params.VOCset = 'VOC2007';
     addpath(dataset_params.VOCsourcepath);
     dataset_params.annotationdir = '../annotations';
     dataset_params.objnames_extra = {'aeroplane', 'bicycle', 'bird', 'boat', 'cat', ...
-      'chair', 'diningtable'}; % required parameter: specify objects with extra annotation -- set to empty set if not using VOC2007
+    'chair', 'diningtable'}; % required parameter: specify objects with extra annotation -- set to empty set if not using VOC2007
     dataset_params.confidence_threshold = -Inf; % minimum confidence to be included in analysis (e.g., set to 0.01 to improve speed)
 
     % all object names
     dataset_params.objnames_all = {'aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus', 'car', ...
-       'cat', 'chair', 'cow', 'diningtable', 'dog', 'horse', 'motorbike', 'person', ...
-       'pottedplant', 'sheep', 'sofa', 'train', 'tvmonitor'}; 
-    
+    'cat', 'chair', 'cow', 'diningtable', 'dog', 'horse', 'motorbike', 'person', ...
+    'pottedplant', 'sheep', 'sofa', 'train', 'tvmonitor'};
+
     % specify sets of similar objects
     animals = [3 8 10 12 13 15 17];    % animals + person (15)
     vehicles1 = [1 4 6 7 19 2 14]; % all vehicles (may want to exclude bicycle motorcycle)
@@ -45,12 +45,42 @@ switch lower(dataset)
     % specify summary sets
     dataset_params.summary_sets = cat(2, {[3 8 10 12 13 17], [1 4 6 7 19 2 14], [9 11 18]});        
     dataset_params.summary_setnames = {'animals', 'vehicles', 'furniture'};    
-    
+
     % localization criteria
     dataset_params.iuthresh_weak = 0.1;  % intersection/union threshold
     dataset_params.idthresh_weak = 0;    % intersection/det_area threshold   
     dataset_params.iuthresh_strong = 0.5;  % intersection/union threshold
     dataset_params.idthresh_strong = 0;    % intersection/det_area threshold 
-    
+  case 'ilsvrc'
+    dataset_params.imset = 'val2';  % set used for analysis
+    dataset_params.imdir = '/net/search/playpen/wliu/ILSVRC2015/release/ILSVRC2015/Data/DET/val/'; % needs to be set for your computer
+    dataset_params.VOCsourcepath = './VOCcode';  % change this for later VOC versions
+    dataset_params.VOCset = 'ILSVRC2014';
+    addpath(dataset_params.VOCsourcepath);
+    dataset_params.annotationdir = '../annotations';
+    dataset_params.annotationsrcdir = '/net/search/playpen/wliu/ILSVRC2015/release/ILSVRC2015/Annotations/DET/val/';
+    dataset_params.objnames_extra = {};
+    dataset_params.confidence_threshold = -Inf; % minimum confidence to be included in analysis (e.g., set to 0.01 to improve speed)
+
+    % all object names
+    class_file = '../classes/ilsvrc_classes.txt';
+    fid = fopen(class_file, 'r');
+    C = textscan(fid, '%s');
+    fclose(fid);
+    dataset_params.objnames_all = C{1};
+    clear C
+
+    % specify sets of similar objects
+    dataset_params.similar_classes = {};
+
+    % specify summary sets
+    dataset_params.summary_sets = {};
+    dataset_params.summary_setnames = {};
+
+    % localization criteria
+    dataset_params.iuthresh_weak = 0.1;  % intersection/union threshold
+    dataset_params.idthresh_weak = 0;    % intersection/det_area threshold
+    dataset_params.iuthresh_strong = 0.5;  % intersection/union threshold
+    dataset_params.idthresh_strong = 0;    % intersection/det_area threshold
 end
 

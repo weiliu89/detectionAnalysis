@@ -13,7 +13,7 @@ else
 end
 
 % get devkit directory with forward slashes
-devkitroot = '/home/dhoiem/data/pascal07/VOCdevkit';
+devkitroot = '/net/search/playpen/wliu/PASCAL';
    %strrep(fileparts(fileparts(mfilename('fullpath'))),'\','/')
 
 % change this path to point to your copy of the PASCAL VOC data

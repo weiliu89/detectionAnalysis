@@ -1,1 +1,2 @@
 addpath('src');
+cd('src');

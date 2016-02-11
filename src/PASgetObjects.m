@@ -1,5 +1,5 @@
 function [ids, bbox, isdiff, istrunc, isocc, details, rnum, onum, classnum] = ...
-    PASgetObjects(rec, objname, usediff)
+    PASgetObjects(rec, objname, usediff, classes)
 % [ids, bbox, isdiff, istrunc, isocc, details, rnum, objnum, classnum] = getObjectBBoxes(rec, objname, usediff)
 
 if ~exist('usediff', 'var') % whether to include difficult variables
@@ -36,7 +36,8 @@ for k = 1:numel(rec)
       details{n} = rec(k).objects(k2).details;
       rnum(n) = k;
       onum(n) = k2;
-      classnum(n) = find(strcmp(rec(k).objects(k2).class, VOCopts.classes));
+      %classnum(n) = find(strcmp(rec(k).objects(k2).class, VOCopts.classes));
+      classnum(n) = find(strcmp(rec(k).objects(k2).class, classes));
     end
   end
 end

@@ -7,6 +7,7 @@ try
     load(cp,'gtids','recs');
 catch
     [gtids,t]=textread(sprintf(VOCopts.imgsetpath,VOCopts.testset),'%s %d');
+    tic;
     for i=1:length(gtids)
         % display progress
         if toc>1
@@ -89,7 +90,7 @@ for d=1:nd
         if ~gt(i).diff(jmax)
             if ~gt(i).det(jmax)
                 tp(d)=1;            % true positive
-		gt(i).det(jmax)=true;
+                gt(i).det(jmax)=true;
             else
                 fp(d)=1;            % false positive (multiple detection)
             end

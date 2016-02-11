@@ -3,21 +3,31 @@ function rec = VOCreadrecxml(path)
 x=VOCreadxml(path);
 x=x.annotation;
 
-rec=rmfield(x,'object');
+if isfield(x, 'object')
+    rec=rmfield(x,'object');
+
+    for i=1:length(x.object)
+        rec.objects(i)=xmlobjtopas(x.object(i));
+    end
+else
+    rec = x;
+    rec.objects = {};
+end
 
 rec.size.width=str2double(rec.size.width);
 rec.size.height=str2double(rec.size.height);
-rec.size.depth=str2double(rec.size.depth);
-
-rec.segmented=strcmp(rec.segmented,'1');
+if isfield(rec.size, 'depth')
+    rec.size.depth=str2double(rec.size.depth);
+else
+    rec.size.depth = 3;
+end
+if isfield(rec, 'segmented')
+    rec.segmented=strcmp(rec.segmented,'1');
+end
 
 rec.imgname=[x.folder '/JPEGImages/' x.filename];
-rec.imgsize=str2double({x.size.width x.size.height x.size.depth});
+rec.imgsize=[rec.size.width rec.size.height rec.size.depth];
 rec.database=rec.source.database;
-
-for i=1:length(x.object)
-    rec.objects(i)=xmlobjtopas(x.object(i));
-end
 
 function p = xmlobjtopas(o)
 
@@ -94,4 +104,4 @@ else
     p.hasparts=false;
     p.part=[];
 end
-    
+

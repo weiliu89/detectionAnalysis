@@ -2,7 +2,7 @@ function result = analyzeFalsePositives(dataset, dataset_params, ann, objind, si
 % result = analyzeFalsePositives(dataset, dataset_params, ann, objind, similar_ind, det, normalizedCount)
 
 switch lower(dataset)
-  case {'voc', 'voc_compatible'}
+  case {'voc', 'voc_compatible', 'ilsvrc'}
                          
     result = analyzeFalsePositives_VOC(dataset, dataset_params, ann, objind, similar_ind, det, normalizedCount);
         

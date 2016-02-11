@@ -36,7 +36,7 @@ set(gca, 'xtick', 1:numel(tics));
 set(gca, 'xticklabel', num2cell(tics))
 set(gca,'Layer','top')
 colormap([[255 255 255]/255 ; [79 129 189]/255 ; [192 80 77]/255 ; [77 192 80]/255*1.2 ; [128 100 162]/255]);
-set(gca, 'fontsize', 16);
+set(gca, 'fontsize', 20);
 axis([1 numel(tics) 0 100])
 legend({'Cor', 'Loc', 'Sim', 'Oth', 'BG'}, 'location', 'southeast')
 title(titlestr);

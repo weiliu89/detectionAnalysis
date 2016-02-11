@@ -17,7 +17,7 @@ function result = analyzeTrueDetections(dataset, dataset_params, objname, det, a
 
 
 switch lower(dataset)
-  case {'voc', 'voc_compatible'}
+  case {'voc', 'voc_compatible', 'ilsvrc'}
                          
     result = analyzeTrueDetections_VOC(dataset, dataset_params, objname, ann, det, normalizedCount, localization);
         

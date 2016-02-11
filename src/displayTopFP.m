@@ -5,7 +5,7 @@ function displayTopFP(dataset, dataset_params, ann, objname, result, det, outdir
 % set. Otherwise, pause is called after each image.
 
 switch lower(dataset)
-  case 'voc'
+  case {'voc', 'voc_compatible', 'ilsvrc'}
     displayTopFP_VOC(dataset, dataset_params, ann, objname, result, det, outdir, N);
   otherwise
     error('unknown datset: %s', dataset); 
@@ -48,7 +48,14 @@ for o = 1:numel(result)
     
     i = indfp(k);            
     
-    im = imread(fullfile(dataset_params.imdir, rec(det(o).rnum(i)).filename));
+    switch lower(dataset)
+        case 'voc'
+            im = imread(fullfile(dataset_params.imdir, rec(det(o).rnum(i)).filename));
+        case 'ilsvrc'
+            im = imread(sprintf('%s/%s.JPEG', dataset_params.imdir, rec(det(o).rnum(i)).filename));
+        otherwise
+            error('unknown datset: %s', dataset);
+    end
     bbox = round(det(o).bbox(i, :));
     
     figure(1), hold off, imagesc(im); axis image, axis off;

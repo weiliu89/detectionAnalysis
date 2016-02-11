@@ -20,7 +20,7 @@ function [detpath, resultdir, detname] = setDetectorInfo(detector)
       detpath = '../detections/vedaldi2009/ts07full-%s-st0.txt';
       resultdir = '../results/vedaldi2009';
       detname = 'VGVZ 2009';  
-    case 'cnn_v7-bb'
+    case 'cnn_v7_bb'
       detpath = '../detections/cnn_v7_bb/comp4_det_test_%s.txt';
       resultdir = '../results/cnn_v7_bb';  
       detname = 'CNN v7 bb';             
