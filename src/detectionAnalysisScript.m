@@ -1,10 +1,11 @@
-function detectionAnalysisScript(detname, detpath, dataset)
+function detectionAnalysisScript(detname, detpath, resultdir, dataset)
 % detectionAnalysisScript (main script)
 
 if nargin < 1
     fprintf(['Usage: detectionAnalysisScript(detname, detpath, dataset)\n',...
         '  - detname: name of the detector to be analyzed\n',...
         '  - detpath: detection file pattern\n',...
+        '  - resultdir: directory of storing the analysis results\n',...
         '  - dataset: ''voc'', ''voc_compatible'' or ''ilsvrc''\n']);
     return;
 end
@@ -28,7 +29,8 @@ displayname = strrep(detname, '_', '-');
 if nargin < 2 || isempty(detpath)
     % use default configuration
     [detpath, resultdir, detname] = setDetectorInfo(detname);
-else
+end
+if nargin < 3
     resultdir = sprintf('../results/%s', detname);
 end
 % type of dataset
@@ -36,7 +38,7 @@ end
 %   use 'voc_compatible' if readDatasetAnnotations/readDetections produce
 %      structures that are the same as those produced for VOC
 %   use 'ilsvrc' for ILSVRC dataset
-if nargin < 3
+if nargin < 4
     dataset = 'voc';
 end
 
