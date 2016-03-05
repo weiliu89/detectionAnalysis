@@ -1,6 +1,8 @@
-\documentclass[10pt,twocolumn,letterpaper]{article}
+\documentclass[11pt,letterpaper]{article}
 
+\usepackage{booktabs}
 \usepackage{graphicx}
+\usepackage[top=1in, bottom=1in, left=0.8in, right=0.8in]{geometry}
 
 \newcommand{\mb}[1]{\mathbf{#1}}
 \newcommand{\tb}[1]{\textbf{#1}}
@@ -23,11 +25,65 @@ Automatically Generated Detector Report}
 
 \input{header.tex} 
 
-\section{Overall Detector Characteristics}
+\input{results.tex} 
 
-%\input{ap.tex}
+\begin{figure}[htp]
+\begin{center}
+\includegraphics[width=0.5\textwidth]{../plots_impact_strong.pdf} \\
+\end{center}
+\caption{
+\textbf{Summary of Sensitivity and Impact of Object Characteristics: } We show the average (over categories) \apn performance of the highest performing and lowest performing subsets within each characteristic (occlusion, truncation, bounding box area, aspect ratio, viewpoint, part visibility).  Overall \apn is indicated by the black dashed line.  The difference between max and min indicates sensitivity; the difference between max and overall indicates the impact.
+}
+\end{figure}
 
-\begin{figure*}[h!tp]
+\begin{figure}[htp]
+\vspace{-0.5in}
+\begin{center}
+\begin{tabular}{c c c}
+\includegraphics[width=0.3\textwidth]{../plots_fp_pie_animals.pdf} &
+\includegraphics[width=0.3\textwidth]{../plots_fp_pie_vehicles.pdf} &
+\includegraphics[width=0.3\textwidth]{../plots_fp_pie_furniture.pdf} \\
+\includegraphics[width=0.3\textwidth]{../plots_fp_animals.pdf} &
+\includegraphics[width=0.3\textwidth]{../plots_fp_vehicles.pdf} &
+\includegraphics[width=0.3\textwidth]{../plots_fp_furniture.pdf} \\
+\includegraphics[width=0.3\textwidth]{../plots_fp_dttrendarea_animals.pdf} & \includegraphics[width=0.3\textwidth]{../plots_fp_dttrendarea_vehicles.pdf} &
+\includegraphics[width=0.3\textwidth]{../plots_fp_dttrendarea_furniture.pdf} \\
+\includegraphics[width=0.3\textwidth]{../plots_fp_trendarea_animals.pdf} &
+\includegraphics[width=0.3\textwidth]{../plots_fp_trendarea_vehicles.pdf} &
+\includegraphics[width=0.3\textwidth]{../plots_fp_trendarea_furniture.pdf} \\
+\hspace{-0.17in}
+\vspace{-0.3in}
+\end{tabular}
+\end{center}
+\caption{
+\textbf{Analysis of Top-Ranked Detections.} Pie charts: fraction of top N detections (N=num of objs in category) that are correct (Cor), or false positives due to poor localization (Loc), confusion with similar objects (Sim), confusion with other VOC objects (Oth), or confusion with background or unlabeled objects (BG). Bar graphs: absolute AP improvement by removing all false positives of one type. `B': no confusion with background and non-similar objects.  `L': first bar segment is improvement if duplicate or poor localizations are removed; second bar is improvement if localization errors are corrected so that the false positives become true positives.
+}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{../plots_area_strong.pdf} \\
+\includegraphics[width=\textwidth]{../plots_height_strong.pdf} \\
+\includegraphics[width=\textwidth]{../plots_aspect_strong.pdf} \\
+\end{center}
+\caption{
+\textbf{Summary of Sensitivity and Impact of Object Characteristics: } We show the \apn performance of the highest performing and lowest performing subsets within each characteristic (occlusion, truncation, bounding box area, aspect ratio, viewpoint, part visibility).  Overall \apn is indicated by the black dashed line.  The difference between max and min indicates sensitivity; the difference between max and overall indicates the impact.
+}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{../plots_occlusion_strong.pdf} \\
+\includegraphics[width=0.8\textwidth]{../plots_parts_strong.pdf} \\
+\includegraphics[width=0.8\textwidth]{../plots_truncation_strong.pdf} \\
+\includegraphics[width=0.8\textwidth]{../plots_view_strong.pdf} \\
+\end{center}
+\caption{
+\textbf{Summary of Sensitivity and Impact of Object Characteristics: } We show the \apn performance of the highest performing and lowest performing subsets within each characteristic (occlusion, truncation, bounding box area, aspect ratio, viewpoint, part visibility).  Overall \apn is indicated by the black dashed line.  The difference between max and min indicates sensitivity; the difference between max and overall indicates the impact.
+}
+\end{figure}
+
+\begin{figure}[h!tp]
 \vspace{-0.5in}
 \begin{center}
 \begin{tabular}{c c c c c}
@@ -76,17 +132,9 @@ Automatically Generated Detector Report}
 \caption{
 \textbf{Analysis of Top-Ranked Detections.} Pie charts: fraction of top N detections (N=num of objs in category) that are correct (Cor), or false positives due to poor localization (Loc), confusion with similar objects (Sim), confusion with other VOC objects (Oth), or confusion with background or unlabeled objects (BG). Bar graphs: absolute AP improvement by removing all false positives of one type. `B': no confusion with background and non-similar objects.  `L': first bar segment is improvement if duplicate or poor localizations are removed; second bar is improvement if localization errors are corrected so that the false positives become true positives.
 }
-\end{figure*}
+\end{figure}
 
-\begin{figure*}
-\begin{center}
-\includegraphics[width=0.5\textwidth]{../plots_impact_strong.pdf} \\
-\end{center}
-\caption{
-\textbf{Summary of Sensitivity and Impact of Object Characteristics: } We show the average (over categories) \apn performance of the highest performing and lowest performing subsets within each characteristic (occlusion, truncation, bounding box area, aspect ratio, viewpoint, part visibility).  Overall \apn is indicated by the black dashed line.  The difference between max and min indicates sensitivity; the difference between max and overall indicates the impact.
-}
-\end{figure*}
-
+\newpage
 \input{aeroplane.tex}
 \input{bicycle.tex}
 \input{boat.tex}

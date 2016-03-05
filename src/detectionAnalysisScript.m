@@ -1,12 +1,17 @@
-function detectionAnalysisScript(detname, detpath, resultdir, dataset)
+function detectionAnalysisScript(detname, detpath, resultdir, apfile, dataset, skip)
 % detectionAnalysisScript (main script)
+% Example command:
+% detectionAnalysisScript('SSD_300x300', '/path/to/detection/results/VOC2007/SSD_300x300/Main/comp4_det_test_%s.txt',
+% '/path/to/analysis/results/VOC2007/SSD_300x300', '/path/to/detection/results/VOC2007/SSD_300x300/results.mat', 'voc', true)
 
 if nargin < 1
-    fprintf(['Usage: detectionAnalysisScript(detname, detpath, dataset)\n',...
+    fprintf(['Usage: detectionAnalysisScript(detname, detpath, resultdir, apfile, dataset, skip)\n',...
         '  - detname: name of the detector to be analyzed\n',...
         '  - detpath: detection file pattern\n',...
         '  - resultdir: directory of storing the analysis results\n',...
-        '  - dataset: ''voc'', ''voc_compatible'' or ''ilsvrc''\n']);
+        '  - apfile: file stores mAP info\n',...
+        '  - dataset: ''voc'', ''voc_compatible'' or ''ilsvrc''\n',...
+        '  - skip: if true, skip saved files\n']);
     return;
 end
 
@@ -21,8 +26,6 @@ DO_TEX = 1;
 DO_SHOW_SURPRISING_LOW_CONFIDENCE_DETECTIONS = 0;
 DO_SHOW_SURPRISING_MISSES = 0;
 
-SKIP_SAVED_FILES = 1; % set true to not overwrite any analysis results
-
 NORM_FRACT = 0.15; % parameter for setting normalized precision (default = 0.15)
 
 displayname = strrep(detname, '_', '-');
@@ -33,14 +36,22 @@ end
 if nargin < 3
     resultdir = sprintf('../results/%s', detname);
 end
+if nargin < 4
+    apfile = '';
+end
 % type of dataset
 %   use 'voc' for any VOC dataset
 %   use 'voc_compatible' if readDatasetAnnotations/readDetections produce
 %      structures that are the same as those produced for VOC
 %   use 'ilsvrc' for ILSVRC dataset
-if nargin < 4
+if nargin < 5
     dataset = 'voc';
 end
+if nargin < 6
+    skip = 1;
+end
+
+SKIP_SAVED_FILES = skip; % set true to not overwrite any analysis results
 
 dataset_params = setDatasetParameters(dataset);
 objnames_all = dataset_params.objnames_all;
@@ -283,6 +294,9 @@ if DO_TEX
     texdir = fullfile(resultdir, 'tex');
     if ~exist(texdir, 'dir'), mkdir(texdir); end;
     system(sprintf('cp ../results/*.tex %s', texdir));
+    if strcmp(dataset, 'voc')
+        writeTexResults(fullfile(resultdir, 'tex'), apfile);
+    end
     for o = 1:numel(objnames_selected)
         writeTexHeader(fullfile(resultdir, 'tex'), displayname)
         gt = [];
@@ -294,5 +308,5 @@ if DO_TEX
     end
     system(sprintf('cd %s; find . -name "*.pdf" -print0 | xargs -P6 -0 -I file pdfcrop file file 1>NUL 2>NUL', resultdir));
     system(sprintf('cd %s; pdflatex detectionAnalysisAutoReportTemplate.tex 1>NUL 2>NUL', texdir));
-    fprintf('Result is generated at: %s/detectionAnalysisAutoReportTemplate.pdf\n', texdir);
+    fprintf('%s/detectionAnalysisAutoReportTemplate.pdf\n', texdir);
 end

@@ -82,20 +82,22 @@ if exist(fullfile(outdir(1:end-4), sprintf('plots_%s_strong.pdf', name)), 'file'
     
     pr('\n\n');
     
-    pr('\\begin{figure*}[hp]\n')
-    pr('\\begin{tabular}{c c c c c}\n');
     fn = dir(fullfile(outdir(1:end-4), 'tp', sprintf('%s*.pdf', name)));
-    for k = 1:numel(fn)
-        %nstr = num2str(k+10000);
-        if mod(k, 5)==0
-            pr('\\hspace{-0.17in}\n \\includegraphics[height=0.85in]{../tp/%s} \\\\ \n', fn(k).name);
-        else
-            pr('\\hspace{-0.17in}\n \\includegraphics[height=0.85in]{../tp/%s} & \n', fn(k).name);
+    if ~isempty(fn)
+        pr('\\begin{figure*}[hp]\n')
+        pr('\\begin{tabular}{c c c c c}\n');
+        for k = 1:numel(fn)
+            %nstr = num2str(k+10000);
+            if mod(k, 5)==0
+                pr('\\hspace{-0.17in}\n \\includegraphics[height=0.85in]{../tp/%s} \\\\ \n', fn(k).name);
+            else
+                pr('\\hspace{-0.17in}\n \\includegraphics[height=0.85in]{../tp/%s} & \n', fn(k).name);
+            end
         end
+        pr('\\end{tabular}\n');
+        pr('\\caption{\\textbf{Unexpectedly difficult %s detections: } Ground truth object is red; predicted confidence in italics; green box is highest scoring detection; blue box is highest scoring with overlap; detection confidence in upper-left corner.}\n', name);
+        pr('\\end{figure*}\n');
     end
-    pr('\\end{tabular}\n');
-    pr('\\caption{\\textbf{Unexpectedly difficult %s detections: } Ground truth object is red; predicted confidence in italics; green box is highest scoring detection; blue box is highest scoring with overlap; detection confidence in upper-left corner.}\n', name);
-    pr('\\end{figure*}\n');
 end
 pr('\\clearpage\n');
 fclose(fid);
